@@ -4,7 +4,6 @@ import os
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = set(['wav'])
-SPECS_FOLDER = 'specs'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -42,29 +41,6 @@ def index():
     
     return render_template('index.html')
 
-@app.route('/specs/<image>')
-def specs_img(image):
-    try:
-       return send_file('specs/' + image)
-    except:
-        abort(404)
-
-def generate_spec(filename):
-    from scipy.io import wavfile
-    import matplotlib.pyplot as plt
-    import numpy as np
-   # try:
-    rate, data = wavfile.read("uploads/" + filename)
-    trimmed_data = data.flatten()
-    #plt.plot(range(len(data)),data)
-    plt.specgram(trimmed_data, NFFT=256, Fs=rate)
-    output_filepath = "specs/" + filename + ".png"
-    plt.savefig(output_filepath)
-    # except Exception as identifier:
-    #     print("Exception occurred.")
-    # remove the wav file
-    os.remove(UPLOAD_FOLDER + "/" + filename)
-    return filename + ".png"
 
 def convert_mp3_to_wav(file):
     import pydub
