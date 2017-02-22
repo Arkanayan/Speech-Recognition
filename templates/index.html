@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>Pyther</title>
+                      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <style>
+            
+            #container {
+                display: flex;           /* establish flex container */
+                flex-direction: column;  /* make main axis vertical */
+                justify-content: center; /* center items vertically, in this case */
+                align-items: center;     /* center items horizontally, in this case */
+                height: 100%;
+            }
+
+            .box form input {
+                min-width: 400px;
+                min-height: 30px;
+                text-align: center
+            }
+            .color-results {
+                color: blue;
+                display: inline;
+            }
+            .error {
+                color: red;
+            }
+            #input {
+                align-items: flex-start
+            }
+        
+      </style>
+    
+    </head>
+    
+    <body>
+            <div id="container"><!-- flex container -->
+
+                <div class="box" id="input"><!-- flex item -->
+                    <form action="/" method="POST" enctype="multipart/form-data" onsubmit="return checkSize(1048567)">
+                        <label for="sound_input">Upload your sound:</label>
+                        <input type="file" name="sound_file" id="sound_input" accept=".wav"/>
+                        <input type="submit" value="submit" />
+                    </form>
+                </div>
+
+                <div class="box" id="output"><!-- flex item -->
+                    
+                    {% if spec_img %}
+                        <img src="specs/{{ spec_img }}" alt="spectogram" >
+                    {% endif %}
+                        </div>
+
+                    
+                </div>
+
+            
+            </div>
+
+        <script type="text/javascript">
+        function checkSize(max_img_size)
+        {
+            var input = document.getElementById("sound_input");
+            // check for browser support (may need to be modified)
+            if(input.files && input.files.length == 1)
+            {           
+                if (input.files[0].size > max_img_size) 
+                {
+                    alert("The file must be less than " + 1 + "MB");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        </script>
+
+    </body>
+
+</html>
