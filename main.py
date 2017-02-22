@@ -36,9 +36,10 @@ def index():
             # if is_mp3(file):
             #     file = convert_mp3_to_wav(file)
             # File is accepted
-            spec_img = generate_spec(file.filename)
-            return render_template('index.html', spec_img=spec_img)
-    
+            transcribed_text = get_text_from_audio(file.filename)
+            print(transcribed_text)
+            return render_template('index.html', text=transcribed_text)
+
     return render_template('index.html')
 
 
@@ -48,4 +49,19 @@ def convert_mp3_to_wav(file):
     output_filename = "uploads/" + file.filename + ".wav"
     if sound.export(output_filename, format="wav"):
         return output_filename
-    
+
+def get_text_from_audio(filename):
+    audiofile = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    import speech_recognition as sr
+    r = sr.Recognizer()
+    with sr.AudioFile(audiofile) as source:
+        audio = r.record(source)
+    try:
+        text = r.recognize_sphinx(audio)
+        return text
+    except sr.UnknownValueError:
+        print("Could not understand audio")
+        return None
+    except sr.RequestError as e:
+        print("Recog Error; {0}".format(e))
+        return None

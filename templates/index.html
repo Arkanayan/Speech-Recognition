@@ -28,6 +28,10 @@
             #input {
                 align-items: flex-start
             }
+
+            #output p {
+                max-width: 800px;
+            }
         
       </style>
     
@@ -37,7 +41,7 @@
             <div id="container"><!-- flex container -->
 
                 <div class="box" id="input"><!-- flex item -->
-                    <form action="/" method="POST" enctype="multipart/form-data" onsubmit="return checkSize(1048567)">
+                    <form action="/" method="POST" enctype="multipart/form-data" >
                         <label for="sound_input">Upload your sound:</label>
                         <input type="file" name="sound_file" id="sound_input" accept=".wav"/>
                         <input type="submit" value="submit" />
@@ -46,8 +50,8 @@
 
                 <div class="box" id="output"><!-- flex item -->
                     
-                    {% if spec_img %}
-                        <img src="specs/{{ spec_img }}" alt="spectogram" >
+                    {% if text %}
+                        <p> {{ text }}</p>
                     {% endif %}
                         </div>
 
