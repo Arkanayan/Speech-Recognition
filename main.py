@@ -57,6 +57,7 @@ def get_text_from_audio(filename):
     with sr.AudioFile(audiofile) as source:
         audio = r.record(source)
     try:
+        # text = r.recognize_wit(audio, 'PE5SXFPEIPPST5JD434ZGQ3WKWXBTEOR')
         text = r.recognize_sphinx(audio)
         return text
     except sr.UnknownValueError:
